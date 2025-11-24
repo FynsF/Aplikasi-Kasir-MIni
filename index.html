@@ -73,16 +73,12 @@
             gap: 15px;
         }
         
-        .logo-icon {
-            width: 50px;
-            height: 50px;
+        .logo-image {
+            width: 60px;
+            height: 60px;
             border-radius: 12px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 22px;
+            object-fit: cover;
+            border: 3px solid var(--primary);
             box-shadow: var(--shadow);
         }
         
@@ -925,9 +921,7 @@
     <div class="container">
         <header>
             <div class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-store"></i>
-                </div>
+                <img src="6.jpg" alt="Fynstore Logo" class="logo-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiByeD0iMTIiIGZpbGw9InVybCgjZ3JhZGllbnQwX2xpbmVhcl8xNV8xKSIvPgo8dGV4dCB4PSIzMCIgeT0iMzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPkZ5bjwvdGV4dD4KPGRlZnM+CjxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQwX2xpbmVhcl8xNV8xIiB4MT0iMCIgeTE9IjAiIHgyPSI2MCIgeTI9IjYwIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIHN0b3AtY29sb3I9IiMxYTczZTgiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDBjODUzIi8+CjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz4KPC9zdmc+'">
                 <div class="logo-text">
                     <h1 id="shopName">Fynstore</h1>
                     <p>Kasir Digital Premium - QRIS Payment</p>
@@ -1159,7 +1153,15 @@
             
             <div id="qrisPayment" class="payment-content">
                 <div class="qr-container">
-                    <img id="paymentQR" src="" alt="QRIS Pembayaran" class="qr-responsive">
+                    <img id="paymentQR" src="Screenshot 2025-11-23 125617.png" alt="QRIS Fynstore" class="qr-responsive" onerror="this.style.display='none'; document.getElementById('defaultQR').style.display='block';">
+                    <div id="defaultQR" style="display: none; padding: 20px; background: white; border-radius: 8px;">
+                        <p style="color: var(--gray); margin-bottom: 15px;">QRIS Fynstore</p>
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; text-align: center;">
+                            <p style="color: var(--primary); font-weight: bold; margin-bottom: 10px;">FYNSTORE PAYMENT</p>
+                            <p style="color: var(--gray); font-size: 14px;">081269441924</p>
+                            <p style="color: var(--gray); font-size: 12px; margin-top: 10px;">Scan dengan aplikasi e-wallet</p>
+                        </div>
+                    </div>
                     <p><strong>Total: Rp <span id="paymentAmount">0</span></strong></p>
                     <p style="font-size: 14px; color: var(--gray); margin-top: 10px;">
                         Scan QRIS di atas untuk melakukan pembayaran
@@ -1171,8 +1173,7 @@
                 <div class="qr-fallback">
                     <h4>Transfer Manual</h4>
                     <p>Silakan transfer ke rekening berikut:</p>
-                    <p><strong>Bank: E-WALLET </strong></p>
-                    <p><strong>No. Rekening: 081269441924 </strong></p>
+                    <p><strong>E-WALLET: 081269441924</strong></p>
                     <p><strong>Atas Nama: Fynstore</strong></p>
                     <p><strong>Total: Rp <span id="manualPaymentAmount">0</span></strong></p>
                     <p style="margin-top: 15px; font-size: 12px;">
@@ -1278,26 +1279,33 @@
             
             <div class="current-qr">
                 <h4>QRIS Saat Ini:</h4>
-                <img id="currentQRISPreview" src="" alt="QRIS Saat Ini" class="qr-responsive">
+                <img id="currentQRISPreview" src="https://i.ibb.co/7yZq3R9/fynstore-qris.png" alt="QRIS Fynstore" class="qr-responsive" onerror="this.style.display='none'; document.getElementById('defaultPreview').style.display='block';">
+                <div id="defaultPreview" style="display: none; text-align: center;">
+                    <p style="color: var(--gray); margin-bottom: 15px;">QRIS Default Fynstore</p>
+                    <div style="background: #f8f9fa; padding: 30px; border-radius: 8px; display: inline-block;">
+                        <p style="color: var(--primary); font-weight: bold; margin-bottom: 10px;">FYNSTORE</p>
+                        <p style="color: var(--gray); font-size: 14px;">081269441924</p>
+                        <p style="color: var(--gray); font-size: 12px; margin-top: 10px;">QRIS Payment</p>
+                    </div>
+                </div>
                 <p style="font-size: 12px; color: var(--gray); margin-top: 10px;">
-                    QRIS yang akan ditampilkan saat pembayaran
+                    QRIS permanen Fynstore - Tidak perlu upload manual
                 </p>
             </div>
             
-            <div class="upload-area" onclick="document.getElementById('qrisUpload').click()">
-                <i class="fas fa-cloud-upload-alt"></i>
-                <h4>Upload QRIS Baru</h4>
+            <div class="upload-area" onclick="showCustomQRISInfo()">
+                <i class="fas fa-info-circle"></i>
+                <h4>QRIS Permanen Fynstore</h4>
                 <p style="color: var(--gray); font-size: 14px;">
-                    Klik untuk memilih gambar QRIS dari komputer<br>
-                    Format: JPG, PNG (max 2MB)
+                    QRIS sudah terpasang secara permanen<br>
+                    No. E-Wallet: 081269441924
                 </p>
-                <input type="file" id="qrisUpload" class="file-input" accept="image/*">
             </div>
             
             <div style="text-align: right; margin-top: 20px; display: flex; gap: 10px; justify-content: flex-end;">
-                <button class="btn btn-primary" onclick="saveQRIS()">
+                <button class="btn btn-primary" onclick="saveSystemSettings()">
                     <i class="fas fa-save"></i>
-                    Simpan QRIS
+                    Simpan Pengaturan
                 </button>
                 <button class="btn btn-outline" onclick="closeQRISModal()">
                     <i class="fas fa-times"></i>
@@ -1351,8 +1359,7 @@
             PRODUCTS: 'fynstore_products',
             TRANSACTIONS: 'fynstore_transactions',
             SETTINGS: 'fynstore_settings',
-            CART: 'fynstore_cart',
-            QRIS_IMAGE: 'fynstore_qris_image'
+            CART: 'fynstore_cart'
         };
 
         // Application State
@@ -1366,8 +1373,14 @@
             virtualSaldo: 0,
             currentAdmin: null
         };
-        let qrisImage = '';
         let currentPaymentMethod = 'qris';
+
+        // Permanent QRIS Configuration
+        const PERMANENT_QRIS = {
+            imageUrl: 'https://i.ibb.co/7yZq3R9/fynstore-qris.png',
+            walletNumber: '081269441924',
+            walletName: 'Fynstore'
+        };
 
         // Utility Functions
         function generateId() {
@@ -1397,6 +1410,10 @@
                     alert.remove();
                 }, 400);
             }, 3000);
+        }
+
+        function showCustomQRISInfo() {
+            showAlert('QRIS Fynstore sudah terpasang permanen: ' + PERMANENT_QRIS.walletNumber, 'success');
         }
 
         // Payment Method Selection
@@ -1451,17 +1468,7 @@
                 cart = JSON.parse(storedCart);
             }
             
-            // Load QRIS image
-            const storedQRIS = localStorage.getItem(STORAGE_KEYS.QRIS_IMAGE);
-            if (storedQRIS) {
-                qrisImage = storedQRIS;
-            } else {
-                // Set default QRIS image (blank)
-                qrisImage = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjVGNUY1Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iMTAwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiM5OTk5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPlVwbG9hZCBRUklTIEdhbWJhcjwvdGV4dD4KPC9zdmc+';
-            }
-            
             updateUI();
-            setupQRISUpload();
         }
 
         function saveProducts() {
@@ -1476,49 +1483,8 @@
             localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(settings));
         }
 
-        function saveQRISImage() {
-            localStorage.setItem(STORAGE_KEYS.QRIS_IMAGE, qrisImage);
-        }
-
         function saveCart() {
             localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
-        }
-
-        // QRIS Image Management
-        function setupQRISUpload() {
-            const uploadInput = document.getElementById('qrisUpload');
-            
-            uploadInput.addEventListener('change', function(e) {
-                const file = e.target.files[0];
-                if (!file) return;
-                
-                // Validasi file
-                if (file.size > 2 * 1024 * 1024) {
-                    showAlert('Ukuran file terlalu besar (max 2MB)', 'error');
-                    return;
-                }
-                
-                if (!file.type.match('image.*')) {
-                    showAlert('File harus berupa gambar (JPG, PNG)', 'error');
-                    return;
-                }
-                
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    qrisImage = event.target.result;
-                    updateQRISPreviews();
-                    showAlert('QRIS berhasil diupload! Klik "Simpan QRIS" untuk menyimpan.');
-                };
-                reader.readAsDataURL(file);
-            });
-        }
-
-        function updateQRISPreviews() {
-            // Update payment modal preview
-            document.getElementById('paymentQR').src = qrisImage;
-            
-            // Update settings modal preview
-            document.getElementById('currentQRISPreview').src = qrisImage;
         }
 
         // Product Management
@@ -1998,14 +1964,15 @@
                     </div>
                     ${transaction.paymentMethod === 'qris' ? `
                     <div class="qris">
-                        <p><strong>QRIS Payment</strong></p>
-                        <img src="${qrisImage}" alt="QRIS">
+                        <p><strong>QRIS Payment - Fynstore</strong></p>
+                        <p>E-Wallet: ${PERMANENT_QRIS.walletNumber}</p>
+                        <p>Scan dengan aplikasi e-wallet Anda</p>
                     </div>
                     ` : `
                     <div class="qris">
                         <p><strong>Transfer Manual</strong></p>
-                        <p>BCA: 1234 5678 9012</p>
-                        <p>a.n. Fynstore</p>
+                        <p>E-Wallet: ${PERMANENT_QRIS.walletNumber}</p>
+                        <p>a.n. ${PERMANENT_QRIS.walletName}</p>
                     </div>
                     `}
                     <div class="footer">
@@ -2088,9 +2055,6 @@
                 document.getElementById('settingsButton').style.display = 'none';
                 document.getElementById('resetButton').style.display = 'none';
             }
-            
-            // Update QRIS previews
-            updateQRISPreviews();
         }
 
         function saveSystemSettings() {
@@ -2105,6 +2069,7 @@
             
             saveSettings();
             updateSettings();
+            closeQRISModal();
             showAlert('Pengaturan berhasil disimpan');
         }
 
@@ -2135,8 +2100,7 @@
             const data = {
                 products,
                 transactions,
-                settings,
-                qrisImage
+                settings
             };
             
             const dataStr = JSON.stringify(data, null, 2);
@@ -2175,14 +2139,10 @@
                         if (data.settings) {
                             settings = { ...settings, ...data.settings };
                         }
-                        if (data.qrisImage) {
-                            qrisImage = data.qrisImage;
-                        }
                         
                         saveProducts();
                         saveTransactions();
                         saveSettings();
-                        saveQRISImage();
                         
                         updateUI();
                         showAlert('Data berhasil diimpor');
@@ -2211,12 +2171,10 @@
             transactions = [];
             cart = [];
             settings.virtualSaldo = 0;
-            qrisImage = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjVGNUY1Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iMTAwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiM5OTk5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPlVwbG9hZCBRUklTIEdhbWJhcjwvdGV4dD4KPC9zdmc+';
             
             saveProducts();
             saveTransactions();
             saveSettings();
-            saveQRISImage();
             saveCart();
             
             updateUI();
@@ -2322,13 +2280,6 @@
             document.getElementById('qrisModal').style.display = 'none';
         }
 
-        function saveQRIS() {
-            saveSystemSettings();
-            saveQRISImage();
-            closeQRISModal();
-            showAlert('QRIS berhasil disimpan!');
-        }
-
         // Event Listeners
         document.getElementById('searchProduct').addEventListener('input', renderProducts);
         document.getElementById('filterStock').addEventListener('change', renderProducts);
@@ -2357,7 +2308,7 @@
         window.doLogin = doLogin;
         window.showQRISModal = showQRISModal;
         window.closeQRISModal = closeQRISModal;
-        window.saveQRIS = saveQRIS;
+        window.saveSystemSettings = saveSystemSettings;
         window.exportData = exportData;
         window.importData = importData;
         window.exportTransactions = exportTransactions;
@@ -2367,6 +2318,7 @@
         window.closeQuickSaleModal = closeQuickSaleModal;
         window.processQuickSale = processQuickSale;
         window.selectPaymentOption = selectPaymentOption;
+        window.showCustomQRISInfo = showCustomQRISInfo;
     </script>
 </body>
 </html>

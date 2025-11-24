@@ -598,7 +598,7 @@
         }
         
         .qr-container img {
-            max-width: 250px;
+            max-width: 100%;
             max-height: 250px;
             border-radius: 8px;
             box-shadow: var(--shadow);
@@ -714,7 +714,7 @@
         }
         
         .current-qr img {
-            max-width: 200px;
+            max-width: 100%;
             max-height: 200px;
             border-radius: 8px;
             box-shadow: var(--shadow);
@@ -816,6 +816,108 @@
         
         .dark-mode {
             display: none;
+        }
+        
+        /* Responsive QRIS Styles */
+        .qr-responsive {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .qr-fallback {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .qr-fallback h4 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .qr-fallback p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        
+        .payment-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .payment-option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .payment-option:hover {
+            border-color: var(--primary);
+            background-color: #f8f9fa;
+        }
+        
+        .payment-option.active {
+            border-color: var(--primary);
+            background-color: rgba(26, 115, 232, 0.05);
+        }
+        
+        .payment-option-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            color: var(--primary);
+            font-size: 18px;
+        }
+        
+        .payment-option-info {
+            flex: 1;
+        }
+        
+        .payment-option-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .payment-option-desc {
+            font-size: 13px;
+            color: var(--gray);
+        }
+        
+        @media (max-width: 768px) {
+            .qr-container img {
+                max-height: 200px;
+            }
+            
+            .current-qr img {
+                max-height: 150px;
+            }
+            
+            .payment-options {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .qr-container img {
+                max-height: 180px;
+            }
+            
+            .current-qr img {
+                max-height: 120px;
+            }
         }
     </style>
 </head>
@@ -1033,14 +1135,53 @@
                 </div>
                 <span class="close" onclick="closePaymentModal()">&times;</span>
             </div>
-            <div class="qr-container">
-                <img id="paymentQR" src="" alt="QRIS Pembayaran">
-                <p><strong>Total: Rp <span id="paymentAmount">0</span></strong></p>
-                <p style="font-size: 14px; color: var(--gray); margin-top: 10px;">
-                    Scan QRIS di atas untuk melakukan pembayaran
-                </p>
+            
+            <div class="payment-options">
+                <div class="payment-option active" id="qrisOption" onclick="selectPaymentOption('qris')">
+                    <div class="payment-option-icon">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <div class="payment-option-info">
+                        <div class="payment-option-title">QRIS</div>
+                        <div class="payment-option-desc">Scan kode QR untuk pembayaran</div>
+                    </div>
+                </div>
+                <div class="payment-option" id="manualOption" onclick="selectPaymentOption('manual')">
+                    <div class="payment-option-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="payment-option-info">
+                        <div class="payment-option-title">Manual Transfer</div>
+                        <div class="payment-option-desc">Transfer manual ke rekening</div>
+                    </div>
+                </div>
             </div>
-            <div style="text-align: center; display: flex; gap: 10px; justify-content: center;">
+            
+            <div id="qrisPayment" class="payment-content">
+                <div class="qr-container">
+                    <img id="paymentQR" src="" alt="QRIS Pembayaran" class="qr-responsive">
+                    <p><strong>Total: Rp <span id="paymentAmount">0</span></strong></p>
+                    <p style="font-size: 14px; color: var(--gray); margin-top: 10px;">
+                        Scan QRIS di atas untuk melakukan pembayaran
+                    </p>
+                </div>
+            </div>
+            
+            <div id="manualPayment" class="payment-content" style="display: none;">
+                <div class="qr-fallback">
+                    <h4>Transfer Manual</h4>
+                    <p>Silakan transfer ke rekening berikut:</p>
+                    <p><strong>Bank: E-WALLET </strong></p>
+                    <p><strong>No. Rekening: 081269441924 </strong></p>
+                    <p><strong>Atas Nama: Fynstore</strong></p>
+                    <p><strong>Total: Rp <span id="manualPaymentAmount">0</span></strong></p>
+                    <p style="margin-top: 15px; font-size: 12px;">
+                        Setelah transfer, klik tombol "Konfirmasi Pembayaran" di bawah
+                    </p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; display: flex; gap: 10px; justify-content: center; margin-top: 20px;">
                 <button class="btn btn-secondary" onclick="confirmPayment()">
                     <i class="fas fa-check"></i>
                     Konfirmasi Pembayaran
@@ -1137,7 +1278,7 @@
             
             <div class="current-qr">
                 <h4>QRIS Saat Ini:</h4>
-                <img id="currentQRISPreview" src="" alt="QRIS Saat Ini">
+                <img id="currentQRISPreview" src="" alt="QRIS Saat Ini" class="qr-responsive">
                 <p style="font-size: 12px; color: var(--gray); margin-top: 10px;">
                     QRIS yang akan ditampilkan saat pembayaran
                 </p>
@@ -1226,6 +1367,7 @@
             currentAdmin: null
         };
         let qrisImage = '';
+        let currentPaymentMethod = 'qris';
 
         // Utility Functions
         function generateId() {
@@ -1255,6 +1397,21 @@
                     alert.remove();
                 }, 400);
             }, 3000);
+        }
+
+        // Payment Method Selection
+        function selectPaymentOption(method) {
+            currentPaymentMethod = method;
+            
+            // Update UI
+            document.getElementById('qrisOption').classList.toggle('active', method === 'qris');
+            document.getElementById('manualOption').classList.toggle('active', method === 'manual');
+            
+            document.getElementById('qrisPayment').style.display = method === 'qris' ? 'block' : 'none';
+            document.getElementById('manualPayment').style.display = method === 'manual' ? 'block' : 'none';
+            
+            // Update manual payment amount
+            document.getElementById('manualPaymentAmount').textContent = document.getElementById('paymentAmount').textContent;
         }
 
         // Storage Functions
@@ -1708,7 +1865,8 @@
                 diskon,
                 biaya,
                 total,
-                admin: settings.currentAdmin || 'System'
+                admin: settings.currentAdmin || 'System',
+                paymentMethod: currentPaymentMethod
             };
             
             transactions.unshift(transaction);
@@ -1805,6 +1963,10 @@
                             <span>Kasir:</span>
                             <span>${transaction.admin}</span>
                         </div>
+                        <div class="item">
+                            <span>Metode:</span>
+                            <span>${transaction.paymentMethod === 'qris' ? 'QRIS' : 'Transfer Manual'}</span>
+                        </div>
                     </div>
                     <hr style="border: none; border-top: 1px dashed #000; margin: 10px 0;">
                     ${transaction.items.map(item => `
@@ -1834,10 +1996,18 @@
                         <span>TOTAL:</span>
                         <span>Rp ${formatRupiah(transaction.total)}</span>
                     </div>
+                    ${transaction.paymentMethod === 'qris' ? `
                     <div class="qris">
                         <p><strong>QRIS Payment</strong></p>
                         <img src="${qrisImage}" alt="QRIS">
                     </div>
+                    ` : `
+                    <div class="qris">
+                        <p><strong>Transfer Manual</strong></p>
+                        <p>BCA: 1234 5678 9012</p>
+                        <p>a.n. Fynstore</p>
+                    </div>
+                    `}
                     <div class="footer">
                         <p>Terima kasih atas kunjungan Anda</p>
                         <p>--- ${settings.shopName} ---</p>
@@ -2098,14 +2268,12 @@
                 return;
             }
             
-            // Cek apakah QRIS sudah diupload
-            if (qrisImage.includes('data:image/svg+xml')) {
-                showAlert('Harap upload QRIS terlebih dahulu di menu Admin', 'error');
-                return;
-            }
+            // Reset payment method to QRIS
+            selectPaymentOption('qris');
             
             updateCartTotal();
             document.getElementById('paymentAmount').textContent = document.getElementById('cartTotal').textContent;
+            document.getElementById('manualPaymentAmount').textContent = document.getElementById('cartTotal').textContent;
             document.getElementById('paymentModal').style.display = 'flex';
         }
 
@@ -2198,7 +2366,7 @@
         window.showQuickSaleModal = showQuickSaleModal;
         window.closeQuickSaleModal = closeQuickSaleModal;
         window.processQuickSale = processQuickSale;
+        window.selectPaymentOption = selectPaymentOption;
     </script>
 </body>
-
 </html>
